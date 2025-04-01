@@ -39,7 +39,7 @@ def vehicle_create(request):
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def vehicle_update(request, pk):
-     if request.method == 'POST':
+    if request.method == 'POST':
         vehicle = get_object_or_404(Vehicle, pk=pk)
         voucher_no = request.POST.get('voucher_no')
         registration_plate = request.POST.get('registration_plate')
@@ -65,7 +65,6 @@ def vehicle_update(request, pk):
             return JsonResponse({'message': 'Vehicle updated successfully!'}, status=200)
         except IntegrityError:
             return JsonResponse({'error': 'An unexpected error occurred!'}, status=400)
-
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def vehicle_delete(request, pk):

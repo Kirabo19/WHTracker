@@ -151,14 +151,17 @@
                 $("#vehicle_id").val("");
                 $("#modalTitle").text("Add Vehicle");
             });
-
+            function getCSRFToken() {
+                let csrfToken = document.querySelector("input[name='csrfmiddlewaretoken']");
+                return csrfToken ? csrfToken.value : null;
+            }
             // AJAX Form Submission (Create & Update)
             $("#vehicleForm").submit(function (e) {
                 e.preventDefault();
                 let vehicleId = $("#vehicle_id").val();
                 let url = vehicleId ? `update/${vehicleId}/` : "{% url 'vehicle_create' %}";
                 // Get CSRF token from the form
-                let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                // let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
                 $.ajax({
                     type: "POST",
