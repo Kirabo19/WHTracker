@@ -67,7 +67,7 @@ def vehicle_update(request, pk):
             return JsonResponse({'error': 'An unexpected error occurred!'}, status=400)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-def vehicle_delete(request, pk):
+def vehicle_delete(request, pk): #
     if request.method == 'POST':
         try:
             vehicle = get_object_or_404(Vehicle, pk=pk)
