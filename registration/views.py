@@ -12,21 +12,21 @@ def vehicle_create(request):
         voucher_no = request.POST.get('voucher_no')
         registration_plate = request.POST.get('registration_plate')
         contact_no = request.POST.get('contact_no')
-        
-        # Ensure all fields are provided
+
+        # Ensure all fields are filled
         if not voucher_no or not registration_plate or not contact_no:
             return JsonResponse({'error': 'All fields are required!'}, status=400)
-        
-        # Check if the registration plate already exists
-        if Vehicle.objects.filter(registration_plate=registration_plate).exists():
-            return JsonResponse({'error': 'Registration plate already exists!'}, status=400)
-      
-        # Check if the voucher number already exists
+
+        # Check if voucher number already exists
         if Vehicle.objects.filter(voucher_no=voucher_no).exists():
             return JsonResponse({'error': 'Voucher number already exists!'}, status=400)
-        
+
+        # Check if registration plate already exists
+        if Vehicle.objects.filter(registration_plate=registration_plate).exists():
+            return JsonResponse({'error': 'Registration plate already exists!'}, status=400)
+
         try:
-            vehicle = Vehicle.objects.create(
+            Vehicle.objects.create(
                 voucher_no=voucher_no,
                 registration_plate=registration_plate,
                 contact_no=contact_no
@@ -34,7 +34,7 @@ def vehicle_create(request):
             return JsonResponse({'message': 'Vehicle added successfully!'}, status=201)
 
         except IntegrityError:
-            return JsonResponse({'error': 'An unexpected error occured!'}, status=400)
+            return JsonResponse({'error': 'An unexpected error occurred!'}, status=400)
        
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
